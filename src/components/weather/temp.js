@@ -3,7 +3,7 @@ import Weathercard from "./weathercard";
 import "./style.css";
 
 const Temp = () => {
-  const [searchValue, setSearchValue] = useState("pune");
+  const [searchValue, setSearchValue] = useState("bhopal");
   const [tempInfo, setTempInfo] = useState({});
 
   const getWeatherInfo = async () => {
@@ -13,12 +13,13 @@ const Temp = () => {
       let res = await fetch(url);
       let data = await res.json();
 
-      const { temp, humidity, pressure } = data.main;
+      let { temp, humidity, pressure } = data.main;
       const { main: weathermood } = data.weather[0];
       const { name } = data;
       const { speed } = data.wind;
       const { country, sunset } = data.sys;
-
+        temp = Math.floor((temp - 273.15)*100);
+        temp=temp/100;
       const myNewWeatherInfo = {
         temp,
         humidity,
